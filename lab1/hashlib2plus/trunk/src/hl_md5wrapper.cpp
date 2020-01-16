@@ -75,33 +75,39 @@ std::string md5wrapper::hashIt(void)
  */  
 std::string md5wrapper::convToString(unsigned char *data)
 {
+	std::string ret = "";
+	for (int i = 0; i < 16; i++)
+	{
+		ret += data[i];
+	}
 	/*
 	 * using a ostringstream to convert the hash in a
 	 * hex string
 	 */
-	std::ostringstream os;
-	for(int i=0; i<16; ++i)
-	{
+	//std::ostringstream os;
+	//for(int i=0; i<16; ++i)
+	//{
 		/*
 		 * set the width to 2
 		 */
-		os.width(2);
+	//	os.width(2);
 
 		/*
 		 * fill with 0
 		 */
-		os.fill('0');
+	//	os.fill('0');
 
 		/*
 		 * conv to hex
 		 */
-		os << std::hex << static_cast<unsigned int>(data[i]);
-	}
+	//	os << std::hex << static_cast<unsigned int>(data[i]);
+	//}
 
 	/*
 	 * return as std::string
 	 */
-	return os.str();
+	//return os.str();
+	return ret;
 }
 
 /**

@@ -1,8 +1,9 @@
 #include <iostream>
+#include <sstream>
 #include <array>
 #include <string>
 //#include <bitset>
-#include <hashlib2plus/trunk/src/hashlibpp.h>
+#include "hashlib2plus/trunk/src/hashlibpp.h"
 using namespace std;
 
 // Recursively call this function to generate all possible combos of passLen from
@@ -12,12 +13,8 @@ void testPasswordRecursion(char charArr[], string prefix, int passLen, int arrLe
 	if (passLen == 0) {
 		try {
 			string alternateSum = md5wrap->getHashFromString(prefix + salt + prefix);
-			/* TODO: Compute intermediate0
-			
-			*/
 			string bytesAlt = "";
 			string appendBytes = "";
-			//string binary = bitset<4>(passLen).to_string();
 
 			for (int i = 0; i < (alternateSum.length()/passLen); ++i) {
 				bytesAlt = bytesAlt + alternateSum;
@@ -93,6 +90,19 @@ void testPasswordRecursion(char charArr[], string prefix, int passLen, int arrLe
 
 void testPassword(char charArr[], int passLen, int arrLen) {
 	testPasswordRecursion(charArr, "", passLen, arrLen);
+}
+
+// Convert direct output to human readable format
+string checkBytes(string input) {
+	std::ostringstream os;
+
+	for (int i = 0; i < 16; i++)
+	{
+		os.width(2);
+		os.fill('0');
+		os << std::hex << static_cast<unsigned int>((unsigned char)(input[i]));
+	}
+	return os.str();
 }
 
 int main() {
